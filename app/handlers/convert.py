@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
 from app import parser
-from app.utils import isfloat
+from app.utils import is_float
 from app.messages import MESSAGES
 
 
@@ -16,9 +16,9 @@ def register_handlers_convert(dp: Dispatcher):
     dp.register_message_handler(process_convert_command, commands='convert')
     dp.register_message_handler(process_currency_code, state=ConvertForm.currency_code)
     dp.register_message_handler(process_amount_invalid,
-                                lambda message: not isfloat(message.text) or not float(message.text) > 0,
+                                lambda message: not is_float(message.text) or not float(message.text) > 0,
                                 state=ConvertForm.amount)
-    dp.register_message_handler(process_amount_valid, lambda message: isfloat(message.text) and float(message.text) > 0,
+    dp.register_message_handler(process_amount_valid, lambda message: is_float(message.text) and float(message.text) > 0,
                                 state=ConvertForm.amount)
 
 
